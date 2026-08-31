@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function ComingSoonPage() {
   return (
-    <Container className="py-24 text-center">
+    <Container className="py-24">
       <p className="text-brand-accent text-sm font-semibold tracking-wide uppercase">Coming soon</p>
       <h1 className="mt-2 text-3xl font-bold tracking-tight">This page is on its way</h1>
       <p className="text-muted-foreground mt-3">

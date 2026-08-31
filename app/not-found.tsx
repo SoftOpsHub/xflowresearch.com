@@ -3,7 +3,7 @@ import { Container } from '@/src/components/layout/Container';
 
 export default function NotFound() {
   return (
-    <Container className="py-24 text-center">
+    <Container className="py-24">
       <p className="text-brand-accent text-sm font-semibold tracking-wide uppercase">404</p>
       <h1 className="mt-2 text-3xl font-bold tracking-tight">Page not found</h1>
       <p className="text-muted-foreground mt-3">

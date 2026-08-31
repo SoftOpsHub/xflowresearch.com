@@ -14,16 +14,11 @@ export function SectionHeading({
   title,
   intro,
   className,
-  align = 'center',
+  align = 'start',
 }: SectionHeadingProps) {
+  const centered = align === 'center';
   return (
-    <div
-      className={cn(
-        'mx-auto max-w-2xl',
-        align === 'center' ? 'text-center' : 'text-start',
-        className,
-      )}
-    >
+    <div className={cn('max-w-3xl', centered ? 'mx-auto text-center' : 'text-start', className)}>
       {eyebrow ? (
         <p className="text-brand-accent text-sm font-semibold tracking-wide uppercase">{eyebrow}</p>
       ) : null}

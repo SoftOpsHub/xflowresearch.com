@@ -11,20 +11,22 @@ const FACTS = [
 export function AboutSection() {
   return (
     <section id="about-intro" className="py-14 sm:py-16">
-      <Container className="max-w-3xl">
-        <h1 className="text-3xl font-bold tracking-tight">About Us</h1>
-        <p className="text-muted-foreground mt-4 text-base">
-          xFlow Research Inc. builds solutions and provides research services in NFV, SDN, IoT, and
-          fast data communication.
-        </p>
-        <ul className="mt-6 space-y-3">
-          {FACTS.map((fact) => (
-            <li key={fact.slice(0, 24)} className="text-muted-foreground flex gap-3 text-base">
-              <span aria-hidden className="bg-brand-accent mt-2 size-1.5 shrink-0 rounded-full" />
-              {fact}
-            </li>
-          ))}
-        </ul>
+      <Container>
+        <div className="max-w-3xl">
+          <h1 className="text-3xl font-bold tracking-tight">About Us</h1>
+          <p className="text-muted-foreground mt-4 text-base">
+            xFlow Research Inc. builds solutions and provides research services in NFV, SDN, IoT,
+            and fast data communication.
+          </p>
+          <ul className="mt-6 space-y-3">
+            {FACTS.map((fact) => (
+              <li key={fact.slice(0, 24)} className="text-muted-foreground flex gap-3 text-base">
+                <span aria-hidden className="bg-brand-accent mt-2 size-1.5 shrink-0 rounded-full" />
+                {fact}
+              </li>
+            ))}
+          </ul>
+        </div>
       </Container>
     </section>
   );

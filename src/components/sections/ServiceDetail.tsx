@@ -17,8 +17,8 @@ export function ServiceDetail({ service }: { service: Service }) {
       </section>
 
       <section className="py-14 sm:py-16">
-        <Container className="max-w-3xl">
-          <p className="text-muted-foreground text-base">
+        <Container>
+          <p className="text-muted-foreground max-w-3xl text-base">
             xFlow Research delivers {service.name.toLowerCase()} as part of its network
             infrastructure and cloud services practice — from early proof of concept through to
             production rollout and ongoing support.
