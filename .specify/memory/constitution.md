@@ -1,9 +1,13 @@
 <!--
 Sync Impact Report
-- Version change: (template) → 1.0.0
-- Bump rationale: First concrete ratification of the constitution for xflow-research;
-  all placeholder principles replaced with project-specific, testable rules. MAJOR
-  baseline (1.0.0) per initial adoption.
+- Version change: 1.0.0 → 1.1.0
+- Bump rationale (1.1.0): MINOR — added a "Branching (NON-NEGOTIABLE)" subsection
+  to Development Workflow (no direct pushes to main; develop is the integration
+  branch; ship via PR from develop into main) and aligned the Governance
+  amendments clause with it.
+- Prior ratification (1.0.0): First concrete ratification of the constitution for
+  xflow-research; all placeholder principles replaced with project-specific,
+  testable rules. MAJOR baseline per initial adoption.
 - Principles defined:
   1. Static-First, No Backend
   2. Component-Based Architecture
@@ -133,12 +137,25 @@ and MUST NOT duplicate a capability the stack already provides.
 - Keep changes small and focused; prefer deleting an unused primitive over
   patching around it.
 
+### Branching (NON-NEGOTIABLE)
+
+- **Nobody pushes to `main` directly.** `main` is release-only and updated
+  exclusively by merging a pull request.
+- `develop` is the integration branch. Day-to-day work lands on `develop` (via
+  short-lived `feature/*` or `fix/*` branches merged into `develop`, or small
+  commits straight onto `develop`).
+- Shipping to `main` is a pull request **from `develop` into `main`**, reviewed
+  against this constitution with all quality gates green.
+- `main` and `develop` are branch-protected on the remote; the PR requirement is
+  enforced by ruleset, not by convention.
+
 ## Governance
 
 This constitution supersedes other conventions where they conflict.
 
-- **Amendments**: proposed via PR that edits this file, states the rationale, and
-  bumps the version. Merge requires the maintainer's approval.
+- **Amendments**: proposed via a PR (from `develop` into `main`) that edits this
+  file, states the rationale, and bumps the version. Merge requires the
+  maintainer's approval.
 - **Versioning** (semantic):
   - MAJOR — a principle is removed or redefined in a backward-incompatible way.
   - MINOR — a new principle or section is added, or guidance is materially
@@ -149,4 +166,4 @@ This constitution supersedes other conventions where they conflict.
 - **Runtime guidance**: `CLAUDE.md` is the day-to-day operational guide and MUST
   stay consistent with this constitution.
 
-**Version**: 1.0.0 | **Ratified**: 2026-08-31 | **Last Amended**: 2026-08-31
+**Version**: 1.1.0 | **Ratified**: 2026-08-31 | **Last Amended**: 2026-08-31

@@ -58,6 +58,13 @@ pnpm dev · pnpm build · pnpm test · pnpm test:e2e · pnpm lint · pnpm typech
 
 `pnpm build` produces the deployable static site in `out/`.
 
+## Branching
+
+Never push to `main`. Work on `develop` (or a short-lived `feature/*` / `fix/*`
+branch merged into `develop`); ship to `main` only via a pull request from
+`develop`. Both branches are protected on the remote. See the constitution's
+"Branching" rule.
+
 ## Spec-driven development (spec-kit)
 
 This repo uses [spec-kit](https://github.com/github/spec-kit). Config, templates,
