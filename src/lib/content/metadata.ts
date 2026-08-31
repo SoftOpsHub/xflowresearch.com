@@ -1,0 +1,36 @@
+import type { PageMeta } from './types';
+
+export const PAGES: Record<'/' | '/about-us' | '/contact', PageMeta> = {
+  '/': {
+    path: '/',
+    title: 'xFlow Research — Network Infrastructure Services',
+    description:
+      'xFlow Research builds solutions and provides research services in NFV, SDN, IoT, ' +
+      'fast data communication, and other cutting-edge cloud technologies.',
+    ogImage: 'xflow-logo-white',
+    sections: [
+      'hero',
+      'services',
+      'open-source',
+      'research-standardization',
+      'products',
+      'partners',
+    ],
+  },
+  '/about-us': {
+    path: '/about-us',
+    title: 'About Us — xFlow Research',
+    description:
+      'xFlow Research Inc. is one of the very first companies providing SDN, NFV, and ' +
+      'OpenStack development services, with roots in academic networking research.',
+    ogImage: 'xflow-logo-white',
+    sections: ['about-intro', 'about-expertise', 'about-openstack', 'about-nfv'],
+  },
+  '/contact': {
+    path: '/contact',
+    title: 'Contact Us — xFlow Research',
+    description: 'Get in touch with xFlow Research — offices in Dubai, Austin, and Islamabad.',
+    ogImage: 'xflow-logo-white',
+    sections: ['offices'],
+  },
+};
