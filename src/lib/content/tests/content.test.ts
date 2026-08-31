@@ -2,8 +2,6 @@ import { describe, it, expect } from 'vitest';
 import { ASSET_KEYS } from '@/src/lib/assets';
 import { SITE } from '@/src/lib/content/site';
 import { SERVICES } from '@/src/lib/content/services';
-import { OPEN_SOURCE } from '@/src/lib/content/open-source';
-import { RESEARCH_PARTNERS } from '@/src/lib/content/research';
 import { PRODUCTS } from '@/src/lib/content/products';
 import { PARTNERS } from '@/src/lib/content/partners';
 import { OFFICES } from '@/src/lib/content/offices';
@@ -15,8 +13,6 @@ const routes = ['/', '/about-us', '/contact'];
 function collectAssetKeys(): string[] {
   const out: string[] = [SITE.logo];
   SERVICES.forEach((s) => out.push(s.icon));
-  OPEN_SOURCE.forEach((o) => o.logo && out.push(o.logo));
-  RESEARCH_PARTNERS.forEach((r) => r.logo && out.push(r.logo));
   PRODUCTS.forEach((p) => p.image && out.push(p.image));
   PARTNERS.forEach((p) => out.push(p.logo));
   OFFICES.forEach((o) => out.push(o.logo));
@@ -48,7 +44,7 @@ describe('content data integrity', () => {
   });
 
   it('no content string hotlinks a live asset', () => {
-    const blob = JSON.stringify({ SERVICES, PRODUCTS, PARTNERS, OPEN_SOURCE, RESEARCH_PARTNERS });
+    const blob = JSON.stringify({ SERVICES, PRODUCTS, PARTNERS });
     expect(blob).not.toMatch(/xflowresearch\.com\/wp-content/);
   });
 

@@ -8,14 +8,7 @@ export const PAGES: Record<'/' | '/about-us' | '/contact', PageMeta> = {
       'xFlow Research builds solutions and provides research services in NFV, SDN, IoT, ' +
       'fast data communication, and other cutting-edge cloud technologies.',
     ogImage: 'xflow-logo-white',
-    sections: [
-      'hero',
-      'services',
-      'open-source',
-      'research-standardization',
-      'products',
-      'partners',
-    ],
+    sections: ['hero', 'services', 'products', 'partners'],
   },
   '/about-us': {
     path: '/about-us',

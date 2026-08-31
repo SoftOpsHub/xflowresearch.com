@@ -18,14 +18,29 @@ interface LogoWallProps {
   items: readonly LogoItem[];
   /** Render each logo on a dark chip — for monochrome/white icons. */
   chip?: boolean;
+  /** Large-screen column count (default 4). */
+  columns?: 4 | 5;
 }
 
-export function LogoWall({ id, eyebrow, title, intro, items, chip = false }: LogoWallProps) {
+export function LogoWall({
+  id,
+  eyebrow,
+  title,
+  intro,
+  items,
+  chip = false,
+  columns = 4,
+}: LogoWallProps) {
   return (
     <section id={id} className="border-border border-t py-16 sm:py-20">
       <Container>
         <SectionHeading eyebrow={eyebrow} title={title} intro={intro} />
-        <ul className="mt-12 grid grid-cols-2 items-stretch gap-6 sm:grid-cols-3 lg:grid-cols-4">
+        <ul
+          className={cn(
+            'mt-12 grid grid-cols-2 items-stretch gap-x-8 gap-y-10 sm:grid-cols-3',
+            columns === 5 ? 'lg:grid-cols-5' : 'lg:grid-cols-4',
+          )}
+        >
           {items.map((item) => {
             const img = item.logo ? (
               // eslint-disable-next-line @next/next/no-img-element

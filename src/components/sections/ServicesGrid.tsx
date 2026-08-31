@@ -16,13 +16,13 @@ function Card({ service }: { service: Service }) {
           className="size-8 object-contain brightness-0 invert"
         />
       </span>
-      <span className="text-foreground group-hover:text-brand-accent text-base font-semibold">
+      <span className="text-foreground group-hover:text-brand-accent mt-3 block text-sm font-semibold">
         {service.name}
       </span>
     </>
   );
 
-  const className = 'group flex items-center gap-4 py-4';
+  const className = 'group block';
 
   return service.href ? (
     <a href={service.href} target="_blank" rel="noreferrer noopener" className={className}>
@@ -42,7 +42,7 @@ export function ServicesGrid() {
           title="Areas of Expertise"
           intro="xFlow Research specialises in advanced telecom and cloud infrastructure, custom software development, and data analytics — spanning NFV/SDN, DevOps, testing, cyber security, and open-source collaboration."
         />
-        <ul className="mt-10 grid gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((service) => (
             <li key={service.slug}>
               <Card service={service} />

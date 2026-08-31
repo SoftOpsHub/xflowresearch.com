@@ -19,10 +19,10 @@
       "sourceUrl": "https://xflowresearch.com/wp-content/uploads/2025/05/api-dev.svg",
       "type": "logo",
       "alt": "api dev",
-      "bytes": 768,
-      "sha256": "88f78aca65192080dfc51724399e2b2f5982e4e13f5afb98e753d03803815704",
+      "bytes": 718,
+      "sha256": "e76bedfe496acd696afc3afc9400663b04a8a4400103b93b18f7158b1fb99d95",
       "capturedAt": "2026-08-31",
-      "substitution": null
+      "substitution": "background stripped for icon use"
     },
     {
       "key": "arcgis",
@@ -448,10 +448,10 @@
       "sourceUrl": "https://xflowresearch.com/wp-content/uploads/2025/12/r_s.svg",
       "type": "logo",
       "alt": "r s",
-      "bytes": 104994,
-      "sha256": "53674bf751b4fac45efb67aa14797f291678289dd24b7e97f5faff34d1163058",
+      "bytes": 99526,
+      "sha256": "528d45164c49bf64c51afdd57fc214ab4d08664f6eff5f9d24f44a9aa30470f0",
       "capturedAt": "2026-08-31",
-      "substitution": null
+      "substitution": "background stripped for icon use"
     },
     {
       "key": "red-hat",
@@ -492,10 +492,10 @@
       "sourceUrl": "https://xflowresearch.com/wp-content/uploads/2025/05/support.svg",
       "type": "logo",
       "alt": "support",
-      "bytes": 1355,
-      "sha256": "3add87c4733d615aa3dc47c6f032bb2e37b4e9e8b61f3234727d71bed6c8ad28",
+      "bytes": 1304,
+      "sha256": "c2539b1850e97b4ea53dc69c29bc968f560b09b556995ea1e60390e1d1f406ca",
       "capturedAt": "2026-08-31",
-      "substitution": null
+      "substitution": "background stripped for icon use"
     },
     {
       "key": "telco-api",
