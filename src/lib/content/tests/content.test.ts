@@ -19,6 +19,7 @@ function collectAssetKeys(): string[] {
   RESEARCH_PARTNERS.forEach((r) => r.logo && out.push(r.logo));
   PRODUCTS.forEach((p) => p.image && out.push(p.image));
   PARTNERS.forEach((p) => out.push(p.logo));
+  OFFICES.forEach((o) => out.push(o.logo));
   Object.values(PAGES).forEach((p) => out.push(p.ogImage));
   return out;
 }

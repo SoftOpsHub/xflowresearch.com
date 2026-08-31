@@ -1,138 +1,163 @@
 import type { Service } from './types';
 
-// Service names mirror the live site's "Areas of Expertise" list. Blurbs are short
-// summaries of each area.
+// Service names and card links mirror the live site's "Areas of Expertise" grid.
+// The live site opens these in a new tab; relative targets are kept absolute to
+// the origin site. `href: null` cards are not links (as on the live site).
+const SITE_URL = 'https://xflowresearch.com';
+
 export const SERVICES: readonly Service[] = [
   {
     slug: 'artificial-intelligence',
     name: 'Artificial Intelligence',
     blurb: 'Applied AI and machine learning for network and telecom data.',
     icon: 'ai-icon',
+    href: 'https://bluescarf.ai/',
   },
   {
     slug: 'automation-services',
     name: 'Automation Services',
     blurb: 'Infrastructure, test, and workflow automation across the stack.',
     icon: 'automation',
+    href: `${SITE_URL}/automation`,
   },
   {
     slug: 'api',
     name: 'Application Programming Interface',
     blurb: 'Design and delivery of REST and telecom APIs.',
     icon: 'api-dev',
+    href: `${SITE_URL}/api`,
   },
   {
     slug: 'cloud-devops',
     name: 'Cloud and DevOps Services',
     blurb: 'Cloud-native platforms, CI/CD pipelines, and DevOps practice.',
     icon: 'cloud-cservice',
+    href: `${SITE_URL}/cloud-and-devops-services`,
   },
   {
     slug: 'cyber-security',
     name: 'Cyber Security',
     blurb: 'Security engineering, hardening, and assessments.',
     icon: 'cyber-security-icon',
+    href: null,
   },
   {
     slug: 'databases-storage',
     name: 'Databases and Storage',
     blurb: 'Data platforms, storage design, and analytics pipelines.',
     icon: 'databases-symbol',
+    href: `${SITE_URL}/coming-soon`,
   },
   {
     slug: 'gis',
     name: 'Geographical Information Systems (GIS)',
     blurb: 'Spatial data platforms and mapping solutions.',
     icon: 'gis',
+    href: `${SITE_URL}/gis`,
   },
   {
     slug: 'gis-telecommunication',
     name: 'GIS in Telecommunication',
     blurb: 'Geospatial analytics for network planning and operations.',
     icon: 'gis-telco',
+    href: null,
   },
   {
     slug: 'monitoring-solutions',
     name: 'Monitoring Solutions',
     blurb: 'Observability, telemetry, and performance monitoring.',
     icon: 'monitoring-performance',
+    href: `${SITE_URL}/monitoring-solutions`,
   },
   {
     slug: 'nfv-infrastructure',
     name: 'NFV Infrastructure',
     blurb: 'NFV infrastructure development, automation, and orchestration.',
     icon: 'mano-icon',
+    href: `${SITE_URL}/nfv`,
   },
   {
     slug: 'open-source',
-    name: 'Open-Source Contributions and Development',
+    name: 'OpenSource Contributions and Development',
     blurb: 'Upstream contributions to networking and cloud projects.',
     icon: 'r-s',
+    href: `${SITE_URL}/open-source-contributions-and-development`,
   },
   {
     slug: 'professional-services',
     name: 'Professional Services',
     blurb: 'Consulting, architecture, and delivery support.',
     icon: 'professional',
+    href: `${SITE_URL}/professional-services`,
   },
   {
     slug: 'project-management',
     name: 'Project Management Services',
     blurb: 'Programme and delivery management for technical projects.',
     icon: 'project-management',
+    href: `${SITE_URL}/project-management`,
   },
   {
     slug: 'quantum-research',
     name: 'Quantum Research',
     blurb: 'Research into quantum computing and communications.',
     icon: 'quantum-computer',
+    href: null,
   },
   {
     slug: 'research-standardization',
     name: 'Research and Standardization',
     blurb: 'Participation in standards bodies and applied research.',
     icon: 'r-s',
+    href: `${SITE_URL}/research-and-standardization`,
   },
   {
     slug: 'software-development',
     name: 'Software Development',
     blurb: 'Custom software for networking, telecom, and cloud.',
     icon: 'programming-svgrepo-com',
+    href: `${SITE_URL}/software-development`,
   },
   {
     slug: 'sonic-nos',
     name: 'SONiC Network Operating System (NOS)',
     blurb: 'SONiC development, porting, and platform bring-up.',
     icon: 'sonic-icon',
+    href: `${SITE_URL}/sonic`,
   },
   {
     slug: 'testing-validation',
     name: 'Testing and Validation',
     blurb: 'Benchmarking, profiling, and conformance testing.',
     icon: 'testing-validation',
+    href: `${SITE_URL}/testing-and-validation`,
   },
   {
     slug: 'training-services',
     name: 'Training Services',
     blurb: 'Training and certification in SDN, NFV, and OpenStack.',
     icon: 'training',
+    href: `${SITE_URL}/coming-soon`,
   },
   {
     slug: 'technical-support',
     name: 'Technical Support',
     blurb: 'Ongoing support for deployed platforms and solutions.',
     icon: 'support',
+    href: `${SITE_URL}/coming-soon`,
   },
   {
     slug: 'vulnerability-assessment',
     name: 'Vulnerability Assessment Services',
     blurb: 'Vulnerability scanning and remediation guidance.',
     icon: 'vulnerability-scan-services-icon',
+    href: null,
   },
   {
     slug: 'web-application',
     name: 'Web Application',
     blurb: 'Web application design, build, and delivery.',
     icon: 'web-development',
+    href: `${SITE_URL}/web-application`,
   },
 ];

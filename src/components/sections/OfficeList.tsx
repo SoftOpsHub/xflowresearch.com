@@ -1,37 +1,65 @@
 import { Container } from '@/src/components/layout/Container';
-import { SectionHeading } from '@/src/components/SectionHeading';
+import { assetSrc } from '@/src/lib/assets';
 import { OFFICES } from '@/src/lib/content/offices';
+import type { OfficeLocation } from '@/src/lib/content/types';
+
+function OfficeBlock({ office }: { office: OfficeLocation }) {
+  return (
+    <div>
+      <h2 className="text-foreground font-semibold">{office.entity}</h2>
+      <address className="text-muted-foreground mt-1 text-sm not-italic">
+        {office.addressLines.map((line) => (
+          <span key={line} className="block">
+            {line}
+          </span>
+        ))}
+      </address>
+      {office.email ? (
+        <a
+          href={`mailto:${office.email}`}
+          className="text-brand-accent mt-2 inline-block text-sm font-medium underline underline-offset-4"
+        >
+          {office.email}
+        </a>
+      ) : null}
+    </div>
+  );
+}
 
 export function OfficeList() {
+  // Group consecutive offices that share a logo into one column (matches the
+  // live Contact layout: the LLC on the left, the two xFlow Research entities right).
+  const columns: { logo: string; offices: OfficeLocation[] }[] = [];
+  for (const office of OFFICES) {
+    const last = columns.at(-1);
+    if (last && last.logo === office.logo) last.offices.push(office);
+    else columns.push({ logo: office.logo, offices: [office] });
+  }
+
   return (
-    <section id="offices" className="py-20">
+    <section id="offices" className="py-14 sm:py-16">
       <Container>
-        <SectionHeading eyebrow="Contact Us" title="Our offices" />
-        <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {OFFICES.map((office) => (
-            <li
-              key={office.entity}
-              className="border-border bg-card text-card-foreground rounded-lg border p-6"
+        <h1 className="text-center text-3xl font-bold tracking-tight sm:text-4xl">Contact Us</h1>
+        <div className="mx-auto mt-12 grid max-w-4xl gap-12 sm:grid-cols-2">
+          {columns.map((col) => (
+            <div
+              key={col.offices.map((o) => o.entity).join('|')}
+              className="text-center sm:text-start"
             >
-              <h3 className="font-semibold">{office.entity}</h3>
-              <address className="text-muted-foreground mt-2 text-sm not-italic">
-                {office.addressLines.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={assetSrc(col.logo)}
+                alt=""
+                className="mx-auto mb-5 h-16 w-auto object-contain sm:mx-0"
+              />
+              <div className="space-y-6">
+                {col.offices.map((office) => (
+                  <OfficeBlock key={office.entity} office={office} />
                 ))}
-              </address>
-              {office.email ? (
-                <a
-                  href={`mailto:${office.email}`}
-                  className="text-brand-accent mt-3 inline-block text-sm font-medium underline underline-offset-4"
-                >
-                  {office.email}
-                </a>
-              ) : null}
-            </li>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       </Container>
     </section>
   );

@@ -24,7 +24,7 @@ export const PAGES: Record<'/' | '/about-us' | '/contact', PageMeta> = {
       'xFlow Research Inc. is one of the very first companies providing SDN, NFV, and ' +
       'OpenStack development services, with roots in academic networking research.',
     ogImage: 'xflow-logo-white',
-    sections: ['about-intro', 'about-expertise', 'about-openstack', 'about-nfv'],
+    sections: ['about-intro'],
   },
   '/contact': {
     path: '/contact',

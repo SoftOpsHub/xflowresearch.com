@@ -1,5 +1,6 @@
 import { Container } from '@/src/components/layout/Container';
 import { SectionHeading } from '@/src/components/SectionHeading';
+import { cn } from '@/src/lib/utils';
 import { assetSrc } from '@/src/lib/assets';
 import type { AssetKey } from '@/src/lib/content/types';
 
@@ -15,34 +16,52 @@ interface LogoWallProps {
   title: string;
   intro?: string;
   items: readonly LogoItem[];
+  /** Render each logo on a dark chip — for monochrome/white icons. */
+  chip?: boolean;
 }
 
-export function LogoWall({ id, eyebrow, title, intro, items }: LogoWallProps) {
+export function LogoWall({ id, eyebrow, title, intro, items, chip = false }: LogoWallProps) {
   return (
-    <section id={id} className="border-border border-t py-20">
+    <section id={id} className="border-border border-t py-16 sm:py-20">
       <Container>
         <SectionHeading eyebrow={eyebrow} title={title} intro={intro} />
-        <ul className="mt-12 grid grid-cols-2 items-center gap-8 sm:grid-cols-3 lg:grid-cols-4">
+        <ul className="mt-12 grid grid-cols-2 items-stretch gap-6 sm:grid-cols-3 lg:grid-cols-4">
           {items.map((item) => {
             const img = item.logo ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={assetSrc(item.logo)}
                 alt={item.name}
-                className="max-h-14 w-auto object-contain opacity-80 transition-opacity hover:opacity-100"
+                className={cn(
+                  'w-auto object-contain',
+                  chip ? 'max-h-12' : 'max-h-14 opacity-80 transition-opacity hover:opacity-100',
+                )}
               />
             ) : (
               <span className="text-muted-foreground text-sm font-medium">{item.name}</span>
             );
+            const content = item.url ? (
+              <a
+                href={item.url}
+                target="_blank"
+                rel="noreferrer noopener"
+                title={item.name}
+                className="flex h-full items-center justify-center"
+              >
+                {img}
+              </a>
+            ) : (
+              img
+            );
             return (
-              <li key={item.name} className="flex items-center justify-center">
-                {item.url ? (
-                  <a href={item.url} target="_blank" rel="noreferrer noopener" title={item.name}>
-                    {img}
-                  </a>
-                ) : (
-                  img
+              <li
+                key={item.name}
+                className={cn(
+                  'flex items-center justify-center',
+                  chip ? 'bg-brand-header rounded-lg p-6' : '',
                 )}
+              >
+                {content}
               </li>
             );
           })}

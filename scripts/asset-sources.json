@@ -275,6 +275,12 @@
       "key": "quantum-computer",
       "sourceUrl": "https://xflowresearch.com/wp-content/uploads/2026/02/quantum_computer.png",
       "alt": "quantum computer"
+    },
+    {
+      "key": "hero-bg",
+      "sourceUrl": "https://xflowresearch.com/wp-content/themes/altitude-pro/images/bg-1.jpg",
+      "alt": "",
+      "type": "photo"
     }
   ]
 }

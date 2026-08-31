@@ -1,29 +1,47 @@
+import type { ReactNode } from 'react';
 import { Container } from '@/src/components/layout/Container';
 import { SectionHeading } from '@/src/components/SectionHeading';
 import { assetSrc } from '@/src/lib/assets';
 import { SERVICES } from '@/src/lib/content/services';
+import type { Service } from '@/src/lib/content/types';
+
+function Card({ service }: { service: Service }) {
+  const inner: ReactNode = (
+    <>
+      <span className="bg-brand-header flex size-14 shrink-0 items-center justify-center rounded-full">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={assetSrc(service.icon)} alt="" className="size-7 object-contain" />
+      </span>
+      <span className="text-foreground group-hover:text-brand-accent text-sm font-semibold">
+        {service.name}
+      </span>
+    </>
+  );
+
+  const className = 'group flex items-center gap-4 py-3';
+
+  return service.href ? (
+    <a href={service.href} target="_blank" rel="noreferrer noopener" className={className}>
+      {inner}
+    </a>
+  ) : (
+    <div className={className}>{inner}</div>
+  );
+}
 
 export function ServicesGrid() {
   return (
-    <section id="services" className="py-20">
+    <section id="services" className="py-16 sm:py-20">
       <Container>
-        <SectionHeading eyebrow="What we do" title="Areas of Expertise" />
-        <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <SectionHeading
+          align="start"
+          title="Areas of Expertise"
+          intro="xFlow Research specialises in advanced telecom and cloud infrastructure, custom software development, and data analytics — spanning NFV/SDN, DevOps, testing, cyber security, and open-source collaboration."
+        />
+        <ul className="mt-10 grid gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((service) => (
-            <li
-              key={service.slug}
-              className="border-border bg-card flex gap-4 rounded-lg border p-5"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={assetSrc(service.icon)}
-                alt=""
-                className="size-10 shrink-0 object-contain"
-              />
-              <div>
-                <h3 className="text-card-foreground font-semibold">{service.name}</h3>
-                <p className="text-muted-foreground mt-1 text-sm">{service.blurb}</p>
-              </div>
+            <li key={service.slug}>
+              <Card service={service} />
             </li>
           ))}
         </ul>

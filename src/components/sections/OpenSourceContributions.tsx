@@ -8,6 +8,7 @@ export function OpenSourceContributions() {
       eyebrow="Community"
       title="Open-Source Contributions and Developments"
       items={OPEN_SOURCE}
+      chip
     />
   );
 }

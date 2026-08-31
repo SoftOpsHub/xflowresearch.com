@@ -22,6 +22,8 @@ export interface Service {
   name: string;
   blurb: string;
   icon: AssetKey;
+  /** Where the card links, as on the live site. null → not a link. */
+  href: string | null;
 }
 
 export interface OpenSourceContribution {
@@ -55,6 +57,7 @@ export interface OfficeLocation {
   addressLines: string[];
   email: string | null;
   region: 'AE' | 'US' | 'PK';
+  logo: AssetKey;
 }
 
 export interface PageMeta {

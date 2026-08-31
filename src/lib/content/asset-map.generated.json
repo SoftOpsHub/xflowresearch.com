@@ -91,6 +91,10 @@
     "localPath": "/assets/gsma-logo-alt.svg",
     "alt": "gsma logo alt"
   },
+  "hero-bg": {
+    "localPath": "/assets/hero-bg.jpg",
+    "alt": ""
+  },
   "ieee": {
     "localPath": "/assets/ieee.svg",
     "alt": "ieee"
