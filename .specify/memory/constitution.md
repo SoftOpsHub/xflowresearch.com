@@ -1,64 +1,152 @@
-# [PROJECT_NAME] Constitution
+<!--
+Sync Impact Report
+- Version change: (template) → 1.0.0
+- Bump rationale: First concrete ratification of the constitution for xflow-research;
+  all placeholder principles replaced with project-specific, testable rules. MAJOR
+  baseline (1.0.0) per initial adoption.
+- Principles defined:
+  1. Static-First, No Backend
+  2. Component-Based Architecture
+  3. Type Safety & Automated Quality Gates
+  4. Test the Behavior That Ships
+  5. Accessible, Responsive UI
+- Added sections: Technology Constraints; Development Workflow; Governance
+- Removed sections: none (template placeholders resolved)
+- Templates reviewed:
+  - .specify/templates/plan-template.md ✅ generic "Constitution Check" gate, compatible
+  - .specify/templates/spec-template.md ✅ no constitution coupling
+  - .specify/templates/tasks-template.md ✅ no constitution coupling
+  - CLAUDE.md ✅ already aligned (static site, component architecture, banned deps)
+- Follow-up TODOs: none
+-->
 
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# XFLOW Research Constitution
+
+XFLOW Research is a static website with no backend, built as a fully static export.
+This constitution defines the non-negotiable rules for how the codebase is designed,
+built, and reviewed.
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
+### I. Static-First, No Backend
 
-<!-- Example: I. Library-First -->
+The site MUST build and ship as a fully static export (`next build` with
+`output: 'export'` producing `out/`). There is no server, no authentication, no API
+layer, and no database.
 
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+- No server-only code, Server Actions, route handlers (`app/api/`), middleware
+  (`proxy.ts`), or `next/headers` usage.
+- No data fetching that assumes a first-party backend. Third-party data MUST be
+  fetched client-side with native `fetch`, or baked in at build time.
+- Secrets MUST NOT be introduced; there is nowhere safe to keep them.
 
-### [PRINCIPLE_2_NAME]
+Rationale: the deployment target is a static host. Any backend dependency breaks the
+build contract and the hosting model.
 
-<!-- Example: II. CLI Interface -->
+### II. Component-Based Architecture
 
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+Code is organized by **what a file is**, not by feature.
 
-### [PRINCIPLE_3_NAME]
+- `app/` contains routing, layout, and metadata only — it MUST stay thin. Real UI
+  lives in `src/components/`.
+- `src/` layout is fixed: `components/ui/` (shadcn/Radix primitives),
+  `components/layout/`, `components/<Name>.tsx` (shared components), `hooks/`,
+  `lib/` (pure helpers), `store/` (Zustand, one file per concern), `test/`.
+- Default to Server Components. `'use client'` goes on the leaf that needs
+  interactivity, never on a layout or page.
+- Static assets live in `public/` and are referenced by path.
 
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
+Rationale: a predictable, type-based structure keeps a small research codebase
+navigable and avoids premature feature silos.
 
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Type Safety & Automated Quality Gates
 
-### [PRINCIPLE_4_NAME]
+TypeScript runs in strict mode and the automated gates are mandatory, not advisory.
 
-<!-- Example: IV. Integration Testing -->
+- `pnpm typecheck`, `pnpm lint`, and `pnpm test` MUST all pass before a change is
+  considered done.
+- No `any` and no `as` casts at data boundaries; validate external/untyped input
+  with Zod.
+- Formatting is Prettier; commits follow Conventional Commits (enforced by
+  commitlint). Husky + lint-staged run on commit and MUST NOT be bypassed.
+- Package manager is **pnpm** only.
 
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+Rationale: the gates are the safety net that lets a solo/small team move fast
+without regressions.
 
-### [PRINCIPLE_5_NAME]
+### IV. Test the Behavior That Ships
 
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
+Every behavior change ships with the test that proves it.
 
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+- Components and hooks: Vitest + React Testing Library, colocated in a `tests/`
+  folder next to the unit under test.
+- Critical user flows: Playwright e2e in `e2e/`.
+- Tests assert user-visible behavior and accessibility, not implementation detail.
+- A bug fix MUST include a test that fails without the fix.
 
-## [SECTION_2_NAME]
+Rationale: research code still gets reused; untested behavior silently rots.
 
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### V. Accessible, Responsive UI
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+The UI MUST be usable by keyboard and assistive tech, and MUST work from mobile to
+desktop.
 
-## [SECTION_3_NAME]
+- Prefer semantic HTML; use Radix/shadcn primitives rather than re-implementing
+  interactive widgets.
+- Interactive elements MUST be keyboard operable and have visible focus.
+- Colour contrast MUST meet WCAG AA.
+- Layouts use responsive Tailwind utilities; no fixed-width layouts that break
+  below common breakpoints.
 
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+Rationale: accessibility and responsiveness are far cheaper to keep than to
+retrofit.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Technology Constraints
+
+The stack is authoritative — do not substitute:
+
+- Next.js 16 App Router, TypeScript strict, React Compiler, static export.
+- Tailwind CSS v4; UI via shadcn/ui + Radix primitives copied into
+  `src/components/ui/`.
+- Client state: Zustand (`src/store/`). Forms: React Hook Form + Zod. Toasts:
+  `sonner`. Error boundaries: `react-error-boundary` + Next `error.tsx`. Icons:
+  `lucide-react`.
+- Testing: Vitest + React Testing Library + Playwright.
+
+Banned — never introduce, never suggest, flag on sight: axios; Redux / RTK /
+RTK Query; Jotai; Material UI, Ant Design, Chakra, Bootstrap; styled-components;
+Jest; Storybook; npm or yarn; any server-only / backend-assuming code.
+
+Adding a runtime dependency requires a one-line justification in the PR description
+and MUST NOT duplicate a capability the stack already provides.
+
+## Development Workflow
+
+- Feature work follows the spec-kit flow: `/speckit-constitution` →
+  `/speckit-specify` → `/speckit-plan` → `/speckit-tasks` → `/speckit-implement`.
+  Optional aids: `/speckit-clarify`, `/speckit-analyze`, `/speckit-checklist`.
+- Per-feature artifacts live in `specs/<NNN-slug>/`.
+- The plan step MUST include a Constitution Check; unresolved violations block the
+  plan until justified or removed.
+- Every change is reviewed against this constitution before merge. Quality gates
+  (`typecheck`, `lint`, `test`, `build`) are the merge bar.
+- Keep changes small and focused; prefer deleting an unused primitive over
+  patching around it.
 
 ## Governance
 
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+This constitution supersedes other conventions where they conflict.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+- **Amendments**: proposed via PR that edits this file, states the rationale, and
+  bumps the version. Merge requires the maintainer's approval.
+- **Versioning** (semantic):
+  - MAJOR — a principle is removed or redefined in a backward-incompatible way.
+  - MINOR — a new principle or section is added, or guidance is materially
+    expanded.
+  - PATCH — clarifications and wording fixes with no change in meaning.
+- **Compliance**: every PR review verifies the change complies. Deviations MUST be
+  documented in the PR and either fixed or captured as a follow-up task.
+- **Runtime guidance**: `CLAUDE.md` is the day-to-day operational guide and MUST
+  stay consistent with this constitution.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-08-31 | **Last Amended**: 2026-08-31
