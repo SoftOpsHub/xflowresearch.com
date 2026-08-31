@@ -57,3 +57,16 @@ pnpm dev · pnpm build · pnpm test · pnpm test:e2e · pnpm lint · pnpm typech
 ```
 
 `pnpm build` produces the deployable static site in `out/`.
+
+## Spec-driven development (spec-kit)
+
+This repo uses [spec-kit](https://github.com/github/spec-kit). Config, templates,
+scripts, and the project constitution live in `.specify/`; the workflow skills
+are in `.claude/skills/speckit-*`. Per-feature specs land in `specs/<NNN-slug>/`.
+
+Flow: `/speckit-constitution` → `/speckit-specify` → `/speckit-plan` →
+`/speckit-tasks` → `/speckit-implement`. Optional: `/speckit-clarify` (before
+plan), `/speckit-analyze` and `/speckit-checklist` (before implement).
+
+The constitution (`.specify/memory/constitution.md`) is still the unfilled
+template — run `/speckit-constitution` to populate it.

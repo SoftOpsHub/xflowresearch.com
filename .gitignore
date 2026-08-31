@@ -19,6 +19,9 @@ next-env.d.ts
 .env.*
 !.env.example
 
+# claude code — local, per-machine overrides only (skills/commands ARE committed)
+.claude/settings.local.json
+
 # misc
 .DS_Store
 *.pem
