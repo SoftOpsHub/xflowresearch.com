@@ -20,10 +20,12 @@ export function Hero() {
           : undefined
       }
     >
-      <div className="bg-brand-header/80 absolute inset-0 -z-10" />
-      <Container className="py-24 text-center sm:py-32">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-5xl">{TAGLINE}</h1>
-        <p className="mx-auto mt-6 max-w-3xl text-base text-white/85 sm:text-lg">{INTRO}</p>
+      <div className="bg-brand-header/55 absolute inset-0 -z-10" />
+      <Container className="py-20 text-center sm:py-28">
+        <h1 className="text-3xl font-bold tracking-tight drop-shadow-sm sm:text-5xl">{TAGLINE}</h1>
+        <p className="mx-auto mt-5 max-w-3xl text-base text-white/90 drop-shadow-sm sm:text-lg">
+          {INTRO}
+        </p>
       </Container>
     </section>
   );

@@ -75,9 +75,9 @@
 :root {
   --background: oklch(0.97 0.004 271.37);
   --foreground: oklch(0.145 0 0);
-  /* xFlow brand — dark navy header/footer, blue accent (TODO(capture): fine-tune to live hex) */
-  --brand-header: oklch(0.28 0.06 250);
-  --brand-accent: oklch(0.48 0.16 255);
+  /* xFlow brand — navy (#000080) header/footer, matching link accent */
+  --brand-header: #000080;
+  --brand-accent: #0000b3;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -123,8 +123,8 @@
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
-  --brand-header: oklch(0.22 0.05 250);
-  --brand-accent: oklch(0.65 0.16 255);
+  --brand-header: #000080;
+  --brand-accent: #8f8fff;
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);

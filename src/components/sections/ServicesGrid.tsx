@@ -8,17 +8,21 @@ import type { Service } from '@/src/lib/content/types';
 function Card({ service }: { service: Service }) {
   const inner: ReactNode = (
     <>
-      <span className="bg-brand-header flex size-14 shrink-0 items-center justify-center rounded-full">
+      <span className="bg-brand-header flex size-16 shrink-0 items-center justify-center rounded-full">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={assetSrc(service.icon)} alt="" className="size-7 object-contain" />
+        <img
+          src={assetSrc(service.icon)}
+          alt=""
+          className="size-8 object-contain brightness-0 invert"
+        />
       </span>
-      <span className="text-foreground group-hover:text-brand-accent text-sm font-semibold">
+      <span className="text-foreground group-hover:text-brand-accent text-base font-semibold">
         {service.name}
       </span>
     </>
   );
 
-  const className = 'group flex items-center gap-4 py-3';
+  const className = 'group flex items-center gap-4 py-4';
 
   return service.href ? (
     <a href={service.href} target="_blank" rel="noreferrer noopener" className={className}>
