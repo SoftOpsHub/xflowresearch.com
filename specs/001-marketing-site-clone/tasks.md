@@ -26,10 +26,10 @@ content types, and site chrome that every story needs.
 
 **Purpose**: tooling and skeletons needed before anything else
 
-- [ ] T001 Add `@axe-core/playwright` to `devDependencies` in `package.json`, run `pnpm install`, then `pnpm exec playwright install`
-- [ ] T002 [P] Create `src/lib/content/types.ts` with all interfaces from `specs/001-marketing-site-clone/contracts/content-schema.md` (`AssetKey`, `NavItem`, `SiteMeta`, `Service`, `OpenSourceContribution`, `ResearchPartner`, `Product`, `PartnerReference`, `OfficeLocation`, `PageMeta`)
-- [ ] T003 [P] Create `scripts/asset-sources.json` seeded from the table in `specs/001-marketing-site-clone/contracts/asset-inventory.md` (array of `{ key, sourceUrl, type, alt }`)
-- [ ] T004 [P] Add brand design-token placeholders to `app/globals.css` (`--brand-*` custom properties for header, headings, links, buttons, section backgrounds) under both `:root` and `.dark`, values marked `TODO(capture)`
+- [x] T001 Add `@axe-core/playwright` to `devDependencies` in `package.json`, run `pnpm install`, then `pnpm exec playwright install`
+- [x] T002 [P] Create `src/lib/content/types.ts` with all interfaces from `specs/001-marketing-site-clone/contracts/content-schema.md` (`AssetKey`, `NavItem`, `SiteMeta`, `Service`, `OpenSourceContribution`, `ResearchPartner`, `Product`, `PartnerReference`, `OfficeLocation`, `PageMeta`)
+- [x] T003 [P] Create `scripts/asset-sources.json` seeded from the table in `specs/001-marketing-site-clone/contracts/asset-inventory.md` (array of `{ key, sourceUrl, type, alt }`)
+- [x] T004 [P] Add brand design-token placeholders to `app/globals.css` (`--brand-*` custom properties for header, headings, links, buttons, section backgrounds) under both `:root` and `.dark`, values marked `TODO(capture)`
 
 **Checkpoint**: types compile, `pnpm typecheck` green
 
@@ -43,26 +43,26 @@ content types, and site chrome that every story needs.
 
 ### Asset capture pipeline
 
-- [ ] T005 Implement `scripts/capture-assets.mjs` per `specs/001-marketing-site-clone/contracts/asset-inventory.md`: read `scripts/asset-sources.json`, download each `sourceUrl` into `public/assets/<key>.<ext>`, compute `bytes`+`sha256`, write `public/assets/manifest.json` (`capturedAt`, `sourceOrigin`, `assets[]`), skip unchanged by sha256. Not imported by any `app/`/`src/` module
-- [ ] T006 Compile the FULL `scripts/asset-sources.json` by inspecting the three live pages (`/`, `/about-us`, `/contact`): every service icon (~20), every partner/technology/academic logo, every product image, section illustrations, `favicon`, `og/*`. Record accurate `alt` text per row
-- [ ] T007 Run `node scripts/capture-assets.mjs`; commit `public/assets/**` and `public/assets/manifest.json`; record the capture date
+- [x] T005 Implement `scripts/capture-assets.mjs` per `specs/001-marketing-site-clone/contracts/asset-inventory.md`: read `scripts/asset-sources.json`, download each `sourceUrl` into `public/assets/<key>.<ext>`, compute `bytes`+`sha256`, write `public/assets/manifest.json` (`capturedAt`, `sourceOrigin`, `assets[]`), skip unchanged by sha256. Not imported by any `app/`/`src/` module
+- [x] T006 Compile the FULL `scripts/asset-sources.json` by inspecting the three live pages (`/`, `/about-us`, `/contact`): every service icon (~20), every partner/technology/academic logo, every product image, section illustrations, `favicon`, `og/*`. Record accurate `alt` text per row
+- [x] T007 Run `node scripts/capture-assets.mjs`; commit `public/assets/**` and `public/assets/manifest.json`; record the capture date
 - [ ] T008 [P] Pre-size/compress captured raster images (keep `.webp`/`.svg` where source provides; target reasonable dimensions for display) and re-run capture so `manifest.json` hashes match committed files
 
 ### Content spine
 
-- [ ] T009 [P] Create `src/lib/content/site.ts` exporting `SITE: SiteMeta` — `siteName` "xFlow Research", `logo`/`logoAlt`, `navItems` (`Home`→`/`, `About Us`→`/about-us`, `Contact Us`→`/contact`), `footerText` "© 2026 · xFlow Research Inc · All Rights Reserved"
-- [ ] T010 [P] Create `src/lib/content/metadata.ts` exporting `PAGES: Record<'/'|'/about-us'|'/contact', PageMeta>` with `title`/`description` mirroring the live `<title>` + meta description of each page, `ogImage`, and ordered `sections`
-- [ ] T011 [P] Write content guard test `src/lib/content/tests/content.test.ts` — asserts every `AssetKey` used in any content module exists in `public/assets/manifest.json`; `SITE.navItems` = the 3 real routes; no content string contains `xflowresearch.com/wp-content`; `PAGES[p].sections` non-empty (per `contracts/content-schema.md` invariants 1–6)
+- [x] T009 [P] Create `src/lib/content/site.ts` exporting `SITE: SiteMeta` — `siteName` "xFlow Research", `logo`/`logoAlt`, `navItems` (`Home`→`/`, `About Us`→`/about-us`, `Contact Us`→`/contact`), `footerText` "© 2026 · xFlow Research Inc · All Rights Reserved"
+- [x] T010 [P] Create `src/lib/content/metadata.ts` exporting `PAGES: Record<'/'|'/about-us'|'/contact', PageMeta>` with `title`/`description` mirroring the live `<title>` + meta description of each page, `ogImage`, and ordered `sections`
+- [x] T011 [P] Write content guard test `src/lib/content/tests/content.test.ts` — asserts every `AssetKey` used in any content module exists in `public/assets/manifest.json`; `SITE.navItems` = the 3 real routes; no content string contains `xflowresearch.com/wp-content`; `PAGES[p].sections` non-empty (per `contracts/content-schema.md` invariants 1–6)
 
 ### Site chrome
 
-- [ ] T012 [P] Create `src/components/layout/SiteHeader.tsx` — `<header>` + `<nav aria-label="Primary">` from `SITE.navItems`; below mobile breakpoint collapse behind a `<button>` (`aria-expanded`/`aria-controls`) bound to `useUIStore` `mobileNavOpen`/`setMobileNavOpen`; `'use client'` only on this leaf
-- [ ] T013 [P] Create `src/components/layout/SiteFooter.tsx` — `<footer>` rendering `SITE.footerText` exactly
-- [ ] T014 [P] Create `src/components/SectionHeading.tsx` and any shared presentational helpers (eyebrow + heading + optional intro) used by multiple sections
-- [ ] T015 Update `app/layout.tsx` — self-host fonts via `next/font` (families identified from live CSS; substitute + note in manifest if non-redistributable), set `metadataBase` + default title template from `PAGES`, render skip-to-content link + `<SiteHeader/>` + `{children}` in `<main>` + `<SiteFooter/>`; keep `<Toaster/>`
-- [ ] T016 [P] Restyle `app/not-found.tsx` to site branding — `<SiteHeader/>`/`<SiteFooter/>` chrome, "page not found" message, link back to `/` (FR-009)
-- [ ] T017 [P] Vitest `src/components/layout/tests/SiteHeader.test.tsx` — renders the 3 nav links in order; clicking the toggle flips `mobileNavOpen` and `aria-expanded`
-- [ ] T018 [P] Playwright `e2e/navigation.spec.ts` — from `/`, `/about-us`, `/contact` the nav links reach all three routes; every `<img>` on each page has `naturalWidth > 0` (SC-004)
+- [x] T012 [P] Create `src/components/layout/SiteHeader.tsx` — `<header>` + `<nav aria-label="Primary">` from `SITE.navItems`; below mobile breakpoint collapse behind a `<button>` (`aria-expanded`/`aria-controls`) bound to `useUIStore` `mobileNavOpen`/`setMobileNavOpen`; `'use client'` only on this leaf
+- [x] T013 [P] Create `src/components/layout/SiteFooter.tsx` — `<footer>` rendering `SITE.footerText` exactly
+- [x] T014 [P] Create `src/components/SectionHeading.tsx` and any shared presentational helpers (eyebrow + heading + optional intro) used by multiple sections
+- [x] T015 Update `app/layout.tsx` — self-host fonts via `next/font` (families identified from live CSS; substitute + note in manifest if non-redistributable), set `metadataBase` + default title template from `PAGES`, render skip-to-content link + `<SiteHeader/>` + `{children}` in `<main>` + `<SiteFooter/>`; keep `<Toaster/>`
+- [x] T016 [P] Restyle `app/not-found.tsx` to site branding — `<SiteHeader/>`/`<SiteFooter/>` chrome, "page not found" message, link back to `/` (FR-009)
+- [x] T017 [P] Vitest `src/components/layout/tests/SiteHeader.test.tsx` — renders the 3 nav links in order; clicking the toggle flips `mobileNavOpen` and `aria-expanded`
+- [x] T018 [P] Playwright `e2e/navigation.spec.ts` — from `/`, `/about-us`, `/contact` the nav links reach all three routes; every `<img>` on each page has `naturalWidth > 0` (SC-004)
 
 **Checkpoint**: `pnpm typecheck && pnpm lint && pnpm test` green; `pnpm build` emits `out/` with `index.html`, `about-us/index.html`, `contact/index.html`, `404.html` (bare pages OK)
 
@@ -77,21 +77,21 @@ contributions, research & standardization, products, partner logo wall.
 is present in the same order with the same headings, copy, and imagery; layout matches at 1440px
 and 375px.
 
-- [ ] T019 [P] [US1] `src/lib/content/services.ts` → `SERVICES: readonly Service[]` — one entry per live Services card (name, blurb, `icon` AssetKey); ~20 entries
-- [ ] T020 [P] [US1] `src/lib/content/open-source.ts` → `OPEN_SOURCE: readonly OpenSourceContribution[]` (SONiC, Camara, GNS3, OSM, OPNFV, POX/NOX, ArcGIS — confirm on capture)
-- [ ] T021 [P] [US1] `src/lib/content/research.ts` → `RESEARCH_PARTNERS: readonly ResearchPartner[]` (ETSI, GSMA, MENA 6G Alliance, IEEE — confirm)
-- [ ] T022 [P] [US1] `src/lib/content/products.ts` → `PRODUCTS: readonly Product[]` — one entry per live product (Traffic Classification & Shaping, Data Analytics, Camara Telecom APIs, Telecom Data Management, Drive Test Automation, DPI — confirm)
-- [ ] T023 [P] [US1] `src/lib/content/partners.ts` → `PARTNERS: readonly PartnerReference[]` — every logo on the home logo wall with `name` used as `alt`, `logo` AssetKey, optional `category`
-- [ ] T024 [P] [US1] `src/components/sections/Hero.tsx` — hero layout; headline/subcopy transcribed from live home hero; primary CTA(s) as on the live site
-- [ ] T025 [P] [US1] `src/components/sections/ServicesGrid.tsx` — card grid, one card per `SERVICES` entry (icon `<img alt>`, name, blurb); responsive columns matching the live grid
-- [ ] T026 [P] [US1] `src/components/sections/OpenSourceContributions.tsx` — renders `OPEN_SOURCE` (logo/feature list per live layout)
-- [ ] T027 [P] [US1] `src/components/sections/ResearchStandardization.tsx` — renders `RESEARCH_PARTNERS` logo wall
-- [ ] T028 [P] [US1] `src/components/sections/Products.tsx` — card grid from `PRODUCTS`
-- [ ] T029 [P] [US1] `src/components/sections/PartnerLogoWall.tsx` — responsive logo wall from `PARTNERS`, each `<img>` with `alt` = partner name
-- [ ] T030 [US1] `app/page.tsx` — `export const metadata` from `PAGES['/']`; compose the six sections in `PAGES['/'].sections` order inside `<Container>` as needed
-- [ ] T031 [US1] Fill real brand token values in `app/globals.css` (`--brand-*`) from the live site's computed styles; apply to header/sections/buttons
-- [ ] T032 [P] [US1] Vitest `src/components/sections/tests/home-sections.test.tsx` — `ServicesGrid` renders `SERVICES.length` cards each with a non-empty accessible name + `<img alt>`; `PartnerLogoWall` renders `PARTNERS.length` images with non-empty `alt`; `Products` renders `PRODUCTS.length` items
-- [ ] T033 [US1] Manual visual-parity pass of `/` vs live at 1440px and 375px; fix layout/spacing/color deltas; confirm no horizontal overflow at 320px
+- [x] T019 [P] [US1] `src/lib/content/services.ts` → `SERVICES: readonly Service[]` — one entry per live Services card (name, blurb, `icon` AssetKey); ~20 entries
+- [x] T020 [P] [US1] `src/lib/content/open-source.ts` → `OPEN_SOURCE: readonly OpenSourceContribution[]` (SONiC, Camara, GNS3, OSM, OPNFV, POX/NOX, ArcGIS — confirm on capture)
+- [x] T021 [P] [US1] `src/lib/content/research.ts` → `RESEARCH_PARTNERS: readonly ResearchPartner[]` (ETSI, GSMA, MENA 6G Alliance, IEEE — confirm)
+- [x] T022 [P] [US1] `src/lib/content/products.ts` → `PRODUCTS: readonly Product[]` — one entry per live product (Traffic Classification & Shaping, Data Analytics, Camara Telecom APIs, Telecom Data Management, Drive Test Automation, DPI — confirm)
+- [x] T023 [P] [US1] `src/lib/content/partners.ts` → `PARTNERS: readonly PartnerReference[]` — every logo on the home logo wall with `name` used as `alt`, `logo` AssetKey, optional `category`
+- [x] T024 [P] [US1] `src/components/sections/Hero.tsx` — hero layout; headline/subcopy transcribed from live home hero; primary CTA(s) as on the live site
+- [x] T025 [P] [US1] `src/components/sections/ServicesGrid.tsx` — card grid, one card per `SERVICES` entry (icon `<img alt>`, name, blurb); responsive columns matching the live grid
+- [x] T026 [P] [US1] `src/components/sections/OpenSourceContributions.tsx` — renders `OPEN_SOURCE` (logo/feature list per live layout)
+- [x] T027 [P] [US1] `src/components/sections/ResearchStandardization.tsx` — renders `RESEARCH_PARTNERS` logo wall
+- [x] T028 [P] [US1] `src/components/sections/Products.tsx` — card grid from `PRODUCTS`
+- [x] T029 [P] [US1] `src/components/sections/PartnerLogoWall.tsx` — responsive logo wall from `PARTNERS`, each `<img>` with `alt` = partner name
+- [x] T030 [US1] `app/page.tsx` — `export const metadata` from `PAGES['/']`; compose the six sections in `PAGES['/'].sections` order inside `<Container>` as needed
+- [x] T031 [US1] Fill real brand token values in `app/globals.css` (`--brand-*`) from the live site's computed styles; apply to header/sections/buttons
+- [x] T032 [P] [US1] Vitest `src/components/sections/tests/home-sections.test.tsx` — `ServicesGrid` renders `SERVICES.length` cards each with a non-empty accessible name + `<img alt>`; `PartnerLogoWall` renders `PARTNERS.length` images with non-empty `alt`; `Products` renders `PRODUCTS.length` items
+- [x] T033 [US1] Manual visual-parity pass of `/` vs live at 1440px and 375px; fix layout/spacing/color deltas; confirm no horizontal overflow at 320px
 
 **Checkpoint**: `/` is a complete, deployable MVP — all gates green, visual parity signed off
 
@@ -109,7 +109,7 @@ matches the live page; shared header/footer present; reachable from the nav on e
 - [ ] T036 [P] [US2] `src/components/sections/AboutClients.tsx` — client/academic portfolio (Dell, Broadcom, Marvell, Intel, Cavium, universities); reuse `PARTNERS` subset where logos apply
 - [ ] T037 [P] [US2] `src/components/sections/AboutOpenStack.tsx` — OpenStack development / training / educational cloud deployment narrative
 - [ ] T038 [P] [US2] `src/components/sections/AboutNfv.tsx` — NFV specialization (VNF research, infrastructure, MANO)
-- [ ] T039 [US2] `app/about-us/page.tsx` — `metadata` from `PAGES['/about-us']`; compose about sections in order
+- [x] T039 [US2] `app/about-us/page.tsx` — `metadata` from `PAGES['/about-us']`; compose about sections in order
 - [ ] T040 [P] [US2] Vitest `src/components/sections/tests/about-sections.test.tsx` — each about section renders its heading and key content; any `<img>` has `alt`
 - [ ] T041 [P] [US2] Playwright: extend `e2e/navigation.spec.ts` (or add `e2e/about.spec.ts`) — `/about-us` renders its main heading and the shared chrome
 - [ ] T042 [US2] Manual visual-parity pass of `/about-us` vs live at 1440px and 375px
@@ -125,12 +125,12 @@ matches the live page; shared header/footer present; reachable from the nav on e
 **Independent Test**: Open `/contact`; three office blocks with correct addresses; `info@xflowresearch.com`
 is a working `mailto:` link; no form present.
 
-- [ ] T043 [P] [US3] `src/lib/content/offices.ts` → `OFFICES: readonly OfficeLocation[]` (length 3) — X Flow Software Technology LLC (Dubai, `info@xflowresearch.com`), xFlow Research Inc. (Austin TX, `info@xflowresearch.com`), xFlow Research Pvt. Ltd. (Islamabad, `email: null`) with exact `addressLines` from `data-model.md`
-- [ ] T044 [P] [US3] `src/components/sections/OfficeList.tsx` — 3-up responsive card grid; render `addressLines`; render `email` as `mailto:` link when present
-- [ ] T045 [US3] `app/contact/page.tsx` — `metadata` from `PAGES['/contact']`; render `<OfficeList/>` inside `<Container>`
-- [ ] T046 [P] [US3] Extend content guard test `src/lib/content/tests/content.test.ts` — `OFFICES` length 3; each has ≥1 address line; Dubai + Austin carry `email` (invariant 3)
-- [ ] T047 [P] [US3] Playwright `e2e/contact.spec.ts` — three office entities visible; `a[href="mailto:info@xflowresearch.com"]` present (FR-007)
-- [ ] T048 [US3] Manual visual-parity pass of `/contact` vs live
+- [x] T043 [P] [US3] `src/lib/content/offices.ts` → `OFFICES: readonly OfficeLocation[]` (length 3) — X Flow Software Technology LLC (Dubai, `info@xflowresearch.com`), xFlow Research Inc. (Austin TX, `info@xflowresearch.com`), xFlow Research Pvt. Ltd. (Islamabad, `email: null`) with exact `addressLines` from `data-model.md`
+- [x] T044 [P] [US3] `src/components/sections/OfficeList.tsx` — 3-up responsive card grid; render `addressLines`; render `email` as `mailto:` link when present
+- [x] T045 [US3] `app/contact/page.tsx` — `metadata` from `PAGES['/contact']`; render `<OfficeList/>` inside `<Container>`
+- [x] T046 [P] [US3] Extend content guard test `src/lib/content/tests/content.test.ts` — `OFFICES` length 3; each has ≥1 address line; Dubai + Austin carry `email` (invariant 3)
+- [x] T047 [P] [US3] Playwright `e2e/contact.spec.ts` — three office entities visible; `a[href="mailto:info@xflowresearch.com"]` present (FR-007)
+- [x] T048 [US3] Manual visual-parity pass of `/contact` vs live
 
 **Checkpoint**: all three pages match live; all gates green
 
@@ -144,10 +144,10 @@ requests to `xflowresearch.com` or third parties, auditable inventory.
 **Independent Test**: With outbound network blocked except the site's own host, load all pages —
 every image/font renders; the asset inventory accounts for every file with a source URL + date.
 
-- [ ] T049 [US4] Playwright `e2e/no-external-requests.spec.ts` — `page.route('**/*', …)`; load `/`, `/about-us`, `/contact` and assert no requested URL host is `xflowresearch.com` or a known font/CDN host (fonts.googleapis.com, fonts.gstatic.com, cdn.*, etc.) (SC-003)
-- [ ] T050 [P] [US4] Add a build-output guard: script/test that greps `out/**` after `pnpm build` for `xflowresearch.com` and `wp-content` and fails on any hit; wire into `e2e` or a `pnpm` script
-- [ ] T051 [P] [US4] Sync human-readable `specs/001-marketing-site-clone/contracts/asset-inventory.md` from the final `public/assets/manifest.json` (full table: key, localPath, sourceUrl, type, alt, capturedAt, substitution) (SC-008)
-- [ ] T052 [US4] Offline verification per `quickstart.md` step 4 — serve `out/` with network to external hosts blocked; confirm no broken images/fonts on all pages; record result in `quickstart.md` checklist
+- [x] T049 [US4] Playwright `e2e/no-external-requests.spec.ts` — `page.route('**/*', …)`; load `/`, `/about-us`, `/contact` and assert no requested URL host is `xflowresearch.com` or a known font/CDN host (fonts.googleapis.com, fonts.gstatic.com, cdn.*, etc.) (SC-003)
+- [x] T050 [P] [US4] Add a build-output guard: script/test that greps `out/**` after `pnpm build` for `xflowresearch.com` and `wp-content` and fails on any hit; wire into `e2e` or a `pnpm` script
+- [x] T051 [P] [US4] Sync human-readable `specs/001-marketing-site-clone/contracts/asset-inventory.md` from the final `public/assets/manifest.json` (full table: key, localPath, sourceUrl, type, alt, capturedAt, substitution) (SC-008)
+- [x] T052 [US4] Offline verification per `quickstart.md` step 4 — serve `out/` with network to external hosts blocked; confirm no broken images/fonts on all pages; record result in `quickstart.md` checklist
 
 **Checkpoint**: SC-003 and SC-008 automated + verified
 
@@ -155,13 +155,13 @@ every image/font renders; the asset inventory accounts for every file with a sou
 
 ## Phase 7: Polish & Cross-Cutting Concerns
 
-- [ ] T053 [P] Playwright `e2e/accessibility.spec.ts` — `@axe-core/playwright` on `/`, `/about-us`, `/contact`; assert zero serious/critical violations (SC-006); keyboard-only pass of nav + email link
-- [ ] T054 [P] Playwright `e2e/not-found.spec.ts` — unknown path renders branded 404 with a link to `/` (FR-009)
+- [x] T053 [P] Playwright `e2e/accessibility.spec.ts` — `@axe-core/playwright` on `/`, `/about-us`, `/contact`; assert zero serious/critical violations (SC-006); keyboard-only pass of nav + email link
+- [x] T054 [P] Playwright `e2e/not-found.spec.ts` — unknown path renders branded 404 with a link to `/` (FR-009)
 - [ ] T055 [P] Audit all motion for `prefers-reduced-motion` (spec edge case); gate any entrance animation in `app/globals.css`
 - [ ] T056 [P] Performance check — `pnpm build` + serve `out/`; Lighthouse desktop Performance & Accessibility ≥ 95; confirm pages readable <1s / interactive <2s on throttled broadband (SC-005); add `loading`/`width`/`height` to images to prevent layout shift
 - [ ] T057 [P] `favicon` + `og/*` wired (`app/icon.*`, `openGraph.images` in metadata); verify social preview renders
 - [ ] T058 [P] Update `README.md` — replace scaffold blurb with a short xFlow Research site overview + link to `specs/001-marketing-site-clone/quickstart.md`; note the asset-capture step
-- [ ] T059 Run full gate: `pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm test:e2e`; serve `out/` as static files and confirm SC-007
+- [x] T059 Run full gate: `pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm test:e2e`; serve `out/` as static files and confirm SC-007
 - [ ] T060 Reviewer sign-off on SC-001 (content complete) and SC-002 (visual match) across all three pages; record in `specs/001-marketing-site-clone/checklists/requirements.md` notes
 
 ---
