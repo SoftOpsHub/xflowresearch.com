@@ -17,7 +17,11 @@ export function SiteHeader() {
       <Container className="flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center" onClick={() => setOpen(false)}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={assetSrc(SITE.logo)} alt={SITE.logoAlt} className="h-8 w-auto" />
+          <img
+            src={assetSrc(SITE.logo)}
+            alt={SITE.logoAlt}
+            className="h-8 w-auto brightness-0 invert"
+          />
         </Link>
 
         <nav aria-label="Primary" className="flex items-center">

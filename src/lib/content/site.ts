@@ -2,8 +2,8 @@ import type { SiteMeta } from './types';
 
 export const SITE: SiteMeta = {
   siteName: 'xFlow Research',
-  logo: 'xflow-logo-white',
-  logoAlt: 'xFlow Research',
+  logo: 'xflow-logo',
+  logoAlt: 'xFlow',
   navItems: [
     { label: 'Home', href: '/' },
     { label: 'About Us', href: '/about-us' },

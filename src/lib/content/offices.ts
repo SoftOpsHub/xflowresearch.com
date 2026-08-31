@@ -6,7 +6,7 @@ export const OFFICES: readonly OfficeLocation[] = [
     addressLines: ['Office 304 Al Wahda Building,', 'Port Saeed Road, Deira, Dubai, UAE'],
     email: 'info@xflowresearch.com',
     region: 'AE',
-    logo: 'xflow-software-technology',
+    logo: 'xflow-logo',
   },
   {
     entity: 'xFlow Research Inc.',

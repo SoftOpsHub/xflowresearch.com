@@ -20,7 +20,7 @@ export function Hero() {
           : undefined
       }
     >
-      <div className="bg-brand-header/55 absolute inset-0 -z-10" />
+      <div className="absolute inset-0 -z-10 bg-black/50" />
       <Container className="py-20 text-center sm:py-28">
         <h1 className="text-3xl font-bold tracking-tight drop-shadow-sm sm:text-5xl">{TAGLINE}</h1>
         <p className="mx-auto mt-5 max-w-3xl text-base text-white/90 drop-shadow-sm sm:text-lg">

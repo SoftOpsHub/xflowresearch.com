@@ -215,6 +215,10 @@
     "localPath": "/assets/web-development.svg",
     "alt": "web development"
   },
+  "xflow-logo": {
+    "localPath": "/assets/xflow-logo.svg",
+    "alt": "xFlow"
+  },
   "xflow-logo-white": {
     "localPath": "/assets/xflow-logo-white.png",
     "alt": "xflow logo white"
