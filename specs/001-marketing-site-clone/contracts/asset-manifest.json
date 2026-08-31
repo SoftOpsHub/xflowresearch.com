@@ -201,6 +201,17 @@
       "substitution": null
     },
     {
+      "key": "favicon",
+      "localPath": "/favicon.ico",
+      "sourceUrl": "https://xflowresearch.com/favicon.ico",
+      "type": "favicon",
+      "alt": "",
+      "bytes": 1117,
+      "sha256": "3672bae7645b9ac139cd87d4f295a99a24ae9f63aac81d43386c237447e4ba4f",
+      "capturedAt": "2026-08-31",
+      "substitution": null
+    },
+    {
       "key": "gis",
       "localPath": "/assets/gis.svg",
       "sourceUrl": "https://xflowresearch.com/wp-content/uploads/2025/05/gis.svg",
@@ -263,6 +274,17 @@
       "alt": "",
       "bytes": 774357,
       "sha256": "0cd7ae1ba7a399e819b27f8d16c50b560221eef9691146135ccb70c340daa065",
+      "capturedAt": "2026-08-31",
+      "substitution": null
+    },
+    {
+      "key": "icon",
+      "localPath": "/icon.png",
+      "sourceUrl": "https://xflowresearch.com/wp-content/uploads/2019/07/cropped-unnamed-270x270.png",
+      "type": "favicon",
+      "alt": "",
+      "bytes": 18759,
+      "sha256": "76641acb6b0c220441f1a726181680ecc1cef391629f8285ee08ea9a6e43dfe5",
       "capturedAt": "2026-08-31",
       "substitution": null
     },
