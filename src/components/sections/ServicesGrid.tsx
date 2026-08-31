@@ -1,7 +1,8 @@
+import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { Container } from '@/src/components/layout/Container';
 import { SectionHeading } from '@/src/components/SectionHeading';
-import { assetSrc } from '@/src/lib/assets';
+import { ServiceIcon } from './ServiceIcon';
 import { SERVICES } from '@/src/lib/content/services';
 import type { Service } from '@/src/lib/content/types';
 
@@ -9,12 +10,7 @@ function Card({ service }: { service: Service }) {
   const inner: ReactNode = (
     <>
       <span className="bg-brand-header flex size-16 shrink-0 items-center justify-center rounded-full">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={assetSrc(service.icon)}
-          alt=""
-          className="size-8 object-contain brightness-0 invert"
-        />
+        <ServiceIcon icon={service.icon} className="size-8" />
       </span>
       <span className="text-foreground group-hover:text-brand-accent mt-3 block text-sm font-semibold">
         {service.name}
@@ -24,12 +20,18 @@ function Card({ service }: { service: Service }) {
 
   const className = 'group block';
 
-  return service.href ? (
+  if (!service.href) return <div className={className}>{inner}</div>;
+  if (service.href.startsWith('/')) {
+    return (
+      <Link href={service.href} className={className}>
+        {inner}
+      </Link>
+    );
+  }
+  return (
     <a href={service.href} target="_blank" rel="noreferrer noopener" className={className}>
       {inner}
     </a>
-  ) : (
-    <div className={className}>{inner}</div>
   );
 }
 

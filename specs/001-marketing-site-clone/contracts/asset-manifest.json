@@ -22,7 +22,7 @@
       "bytes": 718,
       "sha256": "e76bedfe496acd696afc3afc9400663b04a8a4400103b93b18f7158b1fb99d95",
       "capturedAt": "2026-08-31",
-      "substitution": "background stripped for icon use"
+      "substitution": "opaque background stripped for icon use"
     },
     {
       "key": "arcgis",
@@ -448,10 +448,10 @@
       "sourceUrl": "https://xflowresearch.com/wp-content/uploads/2025/12/r_s.svg",
       "type": "logo",
       "alt": "r s",
-      "bytes": 99526,
-      "sha256": "528d45164c49bf64c51afdd57fc214ab4d08664f6eff5f9d24f44a9aa30470f0",
+      "bytes": 99408,
+      "sha256": "8c9e6ffb0c334994d83158e45746922d1a5cdcf2d0b678b54aee86804897b448",
       "capturedAt": "2026-08-31",
-      "substitution": "background stripped for icon use"
+      "substitution": "opaque background stripped for icon use"
     },
     {
       "key": "red-hat",
@@ -495,7 +495,7 @@
       "bytes": 1304,
       "sha256": "c2539b1850e97b4ea53dc69c29bc968f560b09b556995ea1e60390e1d1f406ca",
       "capturedAt": "2026-08-31",
-      "substitution": "background stripped for icon use"
+      "substitution": "opaque background stripped for icon use"
     },
     {
       "key": "telco-api",

@@ -22,7 +22,9 @@ function collectAssetKeys(): string[] {
 
 describe('content data integrity', () => {
   it('every referenced asset key exists in the manifest', () => {
-    const missing = collectAssetKeys().filter((k) => !keys.has(k));
+    const missing = collectAssetKeys()
+      .filter((k) => !k.startsWith('lucide:'))
+      .filter((k) => !keys.has(k));
     expect(missing).toEqual([]);
   });
 
