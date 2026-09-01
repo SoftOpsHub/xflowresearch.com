@@ -1,6 +1,9 @@
 <!--
 Sync Impact Report
-- Version change: 1.0.0 → 1.1.0
+- Version change: 1.1.0 → 1.2.0
+- Bump rationale (1.2.0): MINOR — Principle I gains a narrow "third-party
+  interactive embeds" carve-out (lazy-loaded iframes with a static fallback,
+  never on /, /about-us, /contact), covering the GIS pages' Earth Engine maps.
 - Bump rationale (1.1.0): MINOR — added a "Branching (NON-NEGOTIABLE)" subsection
   to Development Workflow (no direct pushes to main; develop is the integration
   branch; ship via PR from develop into main) and aligned the Governance
@@ -43,9 +46,17 @@ layer, and no database.
 - No data fetching that assumes a first-party backend. Third-party data MUST be
   fetched client-side with native `fetch`, or baked in at build time.
 - Secrets MUST NOT be introduced; there is nowhere safe to keep them.
+- **Allowed exception — third-party interactive embeds.** A page MAY host a
+  third-party interactive `<iframe>` (e.g. the Google Earth Engine maps on the
+  GIS pages) when a static screenshot cannot convey the interaction. Each such
+  embed MUST: be lazy-loaded; sit alongside an equivalent static image so the
+  page still works if the frame is blocked; be listed in the component that
+  renders it; and never be added to `/`, `/about-us`, or `/contact`. This is the
+  only permitted runtime external request.
 
 Rationale: the deployment target is a static host. Any backend dependency breaks the
-build contract and the hosting model.
+build contract and the hosting model. The embed carve-out is deliberately narrow —
+it adds no backend and degrades gracefully.
 
 ### II. Component-Based Architecture
 
@@ -166,4 +177,4 @@ This constitution supersedes other conventions where they conflict.
 - **Runtime guidance**: `CLAUDE.md` is the day-to-day operational guide and MUST
   stay consistent with this constitution.
 
-**Version**: 1.1.0 | **Ratified**: 2026-08-31 | **Last Amended**: 2026-08-31
+**Version**: 1.2.0 | **Ratified**: 2026-08-31 | **Last Amended**: 2026-09-01

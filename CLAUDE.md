@@ -27,6 +27,11 @@ Bootstrap, styled-components, Jest, Storybook. No server-only code, Server
 Actions, route handlers (`app/api/`), `proxy.ts`/middleware, or data fetching
 that assumes a backend — this is a static site.
 
+One exception to the no-external-requests rule: a page may host a lazy-loaded
+third-party interactive `<iframe>` (e.g. the GIS Earth Engine maps) alongside a
+static fallback image. Never on `/`, `/about-us`, or `/contact`. See the
+constitution's Principle I.
+
 ## Architecture — component-based (not feature-based)
 
 Organise by **what a file is**, not by feature:
