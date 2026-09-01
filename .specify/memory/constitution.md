@@ -1,9 +1,16 @@
 <!--
 Sync Impact Report
-- Version change: (template) → 1.0.0
-- Bump rationale: First concrete ratification of the constitution for xflow-research;
-  all placeholder principles replaced with project-specific, testable rules. MAJOR
-  baseline (1.0.0) per initial adoption.
+- Version change: 1.1.0 → 1.2.0
+- Bump rationale (1.2.0): MINOR — Principle I gains a narrow "third-party
+  interactive embeds" carve-out (lazy-loaded iframes with a static fallback,
+  never on /, /about-us, /contact), covering the GIS pages' Earth Engine maps.
+- Bump rationale (1.1.0): MINOR — added a "Branching (NON-NEGOTIABLE)" subsection
+  to Development Workflow (no direct pushes to main; develop is the integration
+  branch; ship via PR from develop into main) and aligned the Governance
+  amendments clause with it.
+- Prior ratification (1.0.0): First concrete ratification of the constitution for
+  xflow-research; all placeholder principles replaced with project-specific,
+  testable rules. MAJOR baseline per initial adoption.
 - Principles defined:
   1. Static-First, No Backend
   2. Component-Based Architecture
@@ -39,9 +46,17 @@ layer, and no database.
 - No data fetching that assumes a first-party backend. Third-party data MUST be
   fetched client-side with native `fetch`, or baked in at build time.
 - Secrets MUST NOT be introduced; there is nowhere safe to keep them.
+- **Allowed exception — third-party interactive embeds.** A page MAY host a
+  third-party interactive `<iframe>` (e.g. the Google Earth Engine maps on the
+  GIS pages) when a static screenshot cannot convey the interaction. Each such
+  embed MUST: be lazy-loaded; sit alongside an equivalent static image so the
+  page still works if the frame is blocked; be listed in the component that
+  renders it; and never be added to `/`, `/about-us`, or `/contact`. This is the
+  only permitted runtime external request.
 
 Rationale: the deployment target is a static host. Any backend dependency breaks the
-build contract and the hosting model.
+build contract and the hosting model. The embed carve-out is deliberately narrow —
+it adds no backend and degrades gracefully.
 
 ### II. Component-Based Architecture
 
@@ -133,12 +148,25 @@ and MUST NOT duplicate a capability the stack already provides.
 - Keep changes small and focused; prefer deleting an unused primitive over
   patching around it.
 
+### Branching (NON-NEGOTIABLE)
+
+- **Nobody pushes to `main` directly.** `main` is release-only and updated
+  exclusively by merging a pull request.
+- `develop` is the integration branch. Day-to-day work lands on `develop` (via
+  short-lived `feature/*` or `fix/*` branches merged into `develop`, or small
+  commits straight onto `develop`).
+- Shipping to `main` is a pull request **from `develop` into `main`**, reviewed
+  against this constitution with all quality gates green.
+- `main` and `develop` are branch-protected on the remote; the PR requirement is
+  enforced by ruleset, not by convention.
+
 ## Governance
 
 This constitution supersedes other conventions where they conflict.
 
-- **Amendments**: proposed via PR that edits this file, states the rationale, and
-  bumps the version. Merge requires the maintainer's approval.
+- **Amendments**: proposed via a PR (from `develop` into `main`) that edits this
+  file, states the rationale, and bumps the version. Merge requires the
+  maintainer's approval.
 - **Versioning** (semantic):
   - MAJOR — a principle is removed or redefined in a backward-incompatible way.
   - MINOR — a new principle or section is added, or guidance is materially
@@ -149,4 +177,4 @@ This constitution supersedes other conventions where they conflict.
 - **Runtime guidance**: `CLAUDE.md` is the day-to-day operational guide and MUST
   stay consistent with this constitution.
 
-**Version**: 1.0.0 | **Ratified**: 2026-08-31 | **Last Amended**: 2026-08-31
+**Version**: 1.2.0 | **Ratified**: 2026-08-31 | **Last Amended**: 2026-09-01

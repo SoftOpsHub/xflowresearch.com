@@ -27,6 +27,11 @@ Bootstrap, styled-components, Jest, Storybook. No server-only code, Server
 Actions, route handlers (`app/api/`), `proxy.ts`/middleware, or data fetching
 that assumes a backend — this is a static site.
 
+One exception to the no-external-requests rule: a page may host a lazy-loaded
+third-party interactive `<iframe>` (e.g. the GIS Earth Engine maps) alongside a
+static fallback image. Never on `/`, `/about-us`, or `/contact`. See the
+constitution's Principle I.
+
 ## Architecture — component-based (not feature-based)
 
 Organise by **what a file is**, not by feature:
@@ -57,6 +62,13 @@ pnpm dev · pnpm build · pnpm test · pnpm test:e2e · pnpm lint · pnpm typech
 ```
 
 `pnpm build` produces the deployable static site in `out/`.
+
+## Branching
+
+Never push to `main`. Work on `develop` (or a short-lived `feature/*` / `fix/*`
+branch merged into `develop`); ship to `main` only via a pull request from
+`develop`. Both branches are protected on the remote. See the constitution's
+"Branching" rule.
 
 ## Spec-driven development (spec-kit)
 
