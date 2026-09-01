@@ -1,8 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { ASSET_KEYS } from '@/src/lib/assets';
 import { SITE } from '@/src/lib/content/site';
-import { SERVICES } from '@/src/lib/content/services';
-import { PRODUCTS } from '@/src/lib/content/products';
+import { SERVICES, SERVICE_PAGES } from '@/src/lib/content/services';
+import { SERVICE_CONTENT } from '@/src/lib/content/service-content';
+import { PRODUCTS, PRODUCT_PAGES } from '@/src/lib/content/products';
+import { PRODUCT_CONTENT } from '@/src/lib/content/product-content';
 import { PARTNERS } from '@/src/lib/content/partners';
 import { OFFICES } from '@/src/lib/content/offices';
 import { PAGES } from '@/src/lib/content/metadata';
@@ -17,6 +19,11 @@ function collectAssetKeys(): string[] {
   PARTNERS.forEach((p) => out.push(p.logo));
   OFFICES.forEach((o) => out.push(o.logo));
   Object.values(PAGES).forEach((p) => out.push(p.ogImage));
+  for (const { blocks } of [...Object.values(SERVICE_CONTENT), ...Object.values(PRODUCT_CONTENT)]) {
+    for (const block of blocks) {
+      if (block.type === 'gallery') block.items.forEach((it) => out.push(it.image));
+    }
+  }
   return out;
 }
 
@@ -48,6 +55,24 @@ describe('content data integrity', () => {
   it('no content string hotlinks a live asset', () => {
     const blob = JSON.stringify({ SERVICES, PRODUCTS, PARTNERS });
     expect(blob).not.toMatch(/xflowresearch\.com\/wp-content/);
+  });
+
+  it('every service and product page carries body content', () => {
+    for (const s of SERVICE_PAGES) {
+      const content = SERVICE_CONTENT[s.slug];
+      expect(content, s.slug).toBeDefined();
+      expect(content?.blocks.length ?? 0, s.slug).toBeGreaterThan(0);
+    }
+    for (const p of PRODUCT_PAGES) {
+      const content = PRODUCT_CONTENT[p.slug];
+      expect(content, p.slug).toBeDefined();
+      expect(content?.blocks.length ?? 0, p.slug).toBeGreaterThan(0);
+    }
+  });
+
+  it('service and product content use the xFlow Research brand only', () => {
+    const blob = JSON.stringify({ SERVICE_CONTENT, PRODUCT_CONTENT });
+    expect(blob).not.toMatch(/xFlow Tech|xflowtech\.net/);
   });
 
   it('every page has a non-empty ordered section list', () => {
